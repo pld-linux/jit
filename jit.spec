@@ -12,6 +12,7 @@ Release:	1
 License:	GPL
 Group:		Applications/Communications
 Source0:	http://files.jabberstudio.org/%{name}/%{name}-%{version}.tar.gz
+# Source0-md5:	187b7d9624f809a2853482868272a980
 Source1:	%{name}.xml
 Source2:	%{name}.init
 Source3:	%{name}.sysconfig
