@@ -52,6 +52,16 @@ install jit/jit.so $RPM_BUILD_ROOT%{_libdir}/jabberd/jit.so
 %clean
 rm -rf $RPM_BUILD_ROOT
 
+%pre
+if [ "$1" = 1 ] ; then
+	if [ ! -n "`getgid jabber`" ]; then
+		%{_sbindir}/groupadd -f -g 74 jabber
+	fi
+	if [ ! -n "`id -u jabber 2>/dev/null`" ]; then
+		%{_sbindir}/useradd -g jabber -d /var/lib/jabber -u 74 -s /bin/false jabber 2>/dev/null
+	fi
+fi
+
 %post
 /sbin/chkconfig --add jit
 if [ -r /var/lock/subsys/jit ]; then
