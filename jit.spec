@@ -16,6 +16,7 @@ Source1:	%{name}.xml
 Source2:	%{name}.init
 Source3:	%{name}.sysconfig
 Patch0:		%{name}-version.patch
+Patch1:		%{name}-gcc33.patch
 URL:		http://jit.jabberstudio.org/
 PreReq:		rc-scripts
 Requires(post):	jabber-common
@@ -36,6 +37,7 @@ u¿ytkownikami ICQ.
 %prep
 %setup -q
 %{?_without_version:%patch0 -p1}
+%patch1
 
 %build
 %configure
