@@ -2,19 +2,16 @@ Summary:	ICQ transport daemon for Jabber
 Summary(pl):	Demon transportowy ICQ dla systemu Jabber
 Name:		jit
 Version:	1.1.3
-Release:	0.1
+Release:	0.2
 License:	GPL
 Group:		Applications/Communications
-Source0:	http://files.jabberstudio.org/jit/jit-1.1.3.tar.gz
+Source0:	http://files.jabberstudio.org/%{name}/%{name}-%{version}.tar.gz
 Source1:	%{name}.xml
 Source2:	%{name}.init
 Source3:	%{name}.sysconfig
-#Patch0:		%{name}-daemonize.patch
-#Patch1:		%{name}-user_change.patch
 URL:		http://jit.jabberstudio.org/
 Requires(post,preun):	/sbin/chkconfig
 Requires(post):	fileutils
-Requires:	jabber-icq-transport
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -26,11 +23,9 @@ u¿ytkownikami ICQ.
 
 %prep
 %setup -q
-#%patch0 -p0
-#%patch1 -p0
 
 %build
-./configure --icq
+%configure 
 %{__make}
 
 %install
@@ -50,11 +45,6 @@ rm -rf $RPM_BUILD_ROOT
 
 %post
 /sbin/chkconfig --add jit
-if [ -f /etc/jabberd/icqtrans.xml ]; then
-	mv -f /etc/jabberd/icqtrans.xml /etc/jabberd/icqtrans.xml.off
-	echo "WARNING: Jabber ICQ transport *module* has been disabled for the *daemon*"
-	echo "to work correctly."
-fi
 if [ -r /var/lock/subsys/jit ]; then
 	/etc/rc.d/init.d/jit restart >&2
 else
