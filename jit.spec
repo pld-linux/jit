@@ -22,6 +22,7 @@ Requires(post):	jabber-common
 Requires(post,preun):	/sbin/chkconfig
 Requires(post):	fileutils
 Requires:	jabber-common
+Obsoletes:	jabber-icq-transport
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
