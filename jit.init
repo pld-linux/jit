@@ -30,7 +30,7 @@ case "$1" in
 	# Check if the service is already running?
 	if [ ! -f /var/lock/subsys/jit ]; then
 		msg_starting "Jabber ICQ transport daemon"
-		daemon jit -u jabber -d -H /var/log/jit -c /etc/jit.xml $JIT_FLAGS
+		daemon jit -u jabber -d -H /var/log/jit -c /etc/jabber/jit.xml $JIT_FLAGS
 		RETVAL=$?
 		[ $RETVAL -eq 0 ] && touch /var/lock/subsys/jit
 	else
@@ -42,7 +42,7 @@ case "$1" in
 	if [ -f /var/lock/subsys/jit ]; then
 		msg_stopping "Jabber ICQ transport daemon"
 		killproc jit
-		rm -f /var/run/jit.pid /var/lock/subsys/jit >/dev/null 2>&1
+		rm -f /var/run/jabber/jit.pid /var/lock/subsys/jit >/dev/null 2>&1
 	else
 		msg_not_running "Jabber ICQ transport daemon"
 	fi

@@ -86,7 +86,7 @@
 
   </service>
 
-  <pidfile>/var/run/jit.pid</pidfile>
+  <pidfile>/var/run/jabber/jit.pid</pidfile>
 
    <!-- As host give your main jabber host name
         not icq.your_host !!! -->
