@@ -1,9 +1,8 @@
 #
 # Conditional build:
-#
 # _without_version	- show shorter version string answering the
 #                         version query
-
+#
 Summary:	ICQ transport daemon for Jabber
 Summary(pl):	Demon transportowy ICQ dla systemu Jabber
 Name:		jit
@@ -18,9 +17,11 @@ Source2:	%{name}.init
 Source3:	%{name}.sysconfig
 Patch0:		%{name}-version.patch
 URL:		http://jit.jabberstudio.org/
+PreReq:		rc-scripts
 Requires(post):	jabber-common
 Requires(post,preun):	/sbin/chkconfig
-Requires(post):	fileutils
+Requires(post):	perl-base
+Requires(post):	textutils
 Requires:	jabber-common
 Obsoletes:	jabber-icq-transport
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -39,26 +40,22 @@ u¿ytkownikami ICQ.
 %build
 %configure
 %{__make}
-cd xdb_file
-%{__make}
-cd ..
+%{__make} -C xdb_file
 
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_sbindir},%{_sysconfdir}/jabber,%{_libdir}/jit,/var/log/%{name}} \
-	$RPM_BUILD_ROOT{%{_sysconfdir}{/rc.d/init.d,/sysconfig},/var/lib/%{name}}
+	$RPM_BUILD_ROOT{/etc/{rc.d/init.d,sysconfig},/var/lib/%{name}}
 
 install %{SOURCE1} $RPM_BUILD_ROOT%{_sysconfdir}/jabber
-install %{SOURCE2} $RPM_BUILD_ROOT%{_sysconfdir}/rc.d/init.d/%{name}
-install %{SOURCE3} $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{name}
+install %{SOURCE2} $RPM_BUILD_ROOT/etc/rc.d/init.d/%{name}
+install %{SOURCE3} $RPM_BUILD_ROOT/etc/sysconfig/%{name}
 
 install jabberd/jabberd $RPM_BUILD_ROOT%{_sbindir}/jit
 install jit/jit.so xdb_file/xdb_file.so $RPM_BUILD_ROOT%{_libdir}/%{name}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
-
-%pre
 
 %post
 if [ -f /etc/jabber/secret ] ; then
