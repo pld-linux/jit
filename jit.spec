@@ -1,8 +1,8 @@
 Summary:	ICQ transport daemon for Jabber
 Summary(pl):	Demon transportowy ICQ dla systemu Jabber
 Name:		jit
-Version:	1.1.3
-Release:	0.2
+Version:	1.1.4
+Release:	0.1
 License:	GPL
 Group:		Applications/Communications
 Source0:	http://files.jabberstudio.org/%{name}/%{name}-%{version}.tar.gz
