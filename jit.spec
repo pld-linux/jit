@@ -1,7 +1,6 @@
 #
 # Conditional build:
-# _without_version	- show shorter version string answering the
-#                         version query
+%bcond_without	version		# show shorter version string answering the version query
 #
 Summary:	ICQ transport daemon for Jabber
 Summary(pl):	Demon transportowy ICQ dla systemu Jabber
@@ -36,7 +35,7 @@ u¿ytkownikami ICQ.
 
 %prep
 %setup -q
-%{?_without_version:%patch0 -p1}
+%{!?with_version:%patch0 -p1}
 %patch1
 
 %build
