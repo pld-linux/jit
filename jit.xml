@@ -82,7 +82,7 @@
     </icqtrans>
 
    <load>
-	<icqtrans>/usr/lib/jabberd/icqtrans.so</icqtrans>
+	<icqtrans>/usr/lib/jabberd/jit.so</icqtrans>
    </load>
 
   </service>
