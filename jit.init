@@ -31,7 +31,7 @@ case "$1" in
 		msg_starting "Jabber ICQ transport daemon"
 		daemon jit -u jabber -d -H /var/log/jit -c /etc/jit.xml $JIT_FLAGS
 		RETVAL=$?
-		[ $RETVAL -eq 0 ] touch /var/lock/subsys/jit
+		[ $RETVAL -eq 0 ] && touch /var/lock/subsys/jit
 	else
 		msg_already_running "Jabber ICQ transport daemon"
 		exit 1
