@@ -1,0 +1,65 @@
+--- jabberd/jabberd.c.orig	Thu Nov 21 10:20:50 2002
++++ jabberd/jabberd.c	Mon Jan  6 18:45:20 2003
+@@ -35,6 +35,7 @@
+  *
+  */
+ 
++#include <linux/limits.h>
+ #include "jabberd.h"
+ 
+ HASHTABLE cmd__line, debug__zones=NULL;
+@@ -67,6 +68,42 @@
+   jab_shutdown = 1;
+ }
+ 
++void daemonize(void)
++{
++	pid_t pid;
++	pid_t sid;
++	int fd;
++
++	log_debug(ZONE, "Daemonizing...");
++	pid=fork();
++	if (pid==-1) log_alert(ZONE, "Failed to fork()");
++	if (pid)
++	{
++		log_debug(ZONE, "Daemon born, pid %d.",pid);
++		exit(0);
++	}
++
++        for (fd=0; fd < OPEN_MAX; fd++)
++                close(fd);
++
++        fd = open("/dev/null", O_RDWR);
++        if (fd) {
++                if (fd != 0)
++                        dup2(fd, 0);
++                if (fd != 1)
++                        dup2(fd, 1);
++                if (fd != 2)
++                        dup2(fd, 2);
++                if (fd > 2)
++                        close(fd);
++        }
++
++        sid=setsid();
++	if (sid==-1) abort();
++	log_debug(ZONE, "I am a daemon, I think.");
++	return;
++}
++
+ int main (int argc, char** argv)
+ {
+ //    sigset_t set;               /* a set of signals to trap */
+@@ -94,6 +131,11 @@
+         for(c=argv[i]+1;c[0]!='\0';c++)
+         {
+             /* loop through the characters, like -Dc */
++		if(*c == 'd')
++		{
++			daemonize();
++			continue;
++		}
+ 	    if(*c == 'D')
+             {
+                 debug_flag = 1;
