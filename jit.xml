@@ -6,14 +6,14 @@
     <host/>
     <logtype/>
     <format>%d: [%t] (%h): %s</format>
-    <file>log/icqerror</file>
+	<file>/var/log/jit/icqerror</file>
   </log>
 
   <log id='rlogger'>
     <host/>    
     <logtype>record</logtype>
     <format>%d %h %s</format>
-    <file>log/icqrecord</file>
+	<file>/var/log/jit/icqrecord</file>
   </log>
 
 
@@ -57,7 +57,7 @@
       <lowercase_user/>
       
       <!-- File with stats -->        
-      <user_count_file>stats/session_count.log</user_count_file>
+	  <user_count_file>/var/log/jit/session_count.log</user_count_file>
       
       <!-- Interval beetween checking sessions: ping, messages, acks -->                 
       <session_check>5</session_check>
@@ -87,7 +87,7 @@
 
   </service>
 
-  <pidfile>stats/icq.pid</pidfile>
+  <pidfile>/var/run/jit.pid</pidfile>
 
    <service id="icqlinker">
    <host>localhost</host>
