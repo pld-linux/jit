@@ -1,4 +1,35 @@
 <jabber>
+    <!--Forthistowork,youshouldalsoupdate/etc/jabber/jabber.xml
+	Addthefolowing(changedtoyourneeds):
+
+    <browse>
+
+	...
+
+	<servicetype="icq"jid="icq.localhost"name="ICQ Link">
+		<ns>jabber:iq:gateway</ns>
+		<ns>jabber:iq:register</ns>
+		<ns>jabber:iq:search</ns>
+	</service>
+
+	...
+
+    </browse>
+
+
+    <serviceid="icqlinker">
+	<host>icq.localhost</host>
+	<host>sms.icq.localhost</host>
+	<accept>
+		<ip>127.0.0.1</ip>
+		<port>5555</port>
+		<secret>test</secret>
+		<timeout>30</timeout>
+	</accept>
+    </service>
+-->
+
+
 
 	<!-- *****READ**** /usr/share/doc/jit-*/INSTALL.gz -->
 
@@ -93,9 +124,9 @@
    <host>localhost</host>
    <uplink/>
    <connect>
-     <ip>xxxx</ip>
+     <ip>127.0.0.1</ip>
      <port>5555</port>
-     <secret>xxxx</secret>
+     <secret>test</secret>
    </connect>
    </service>
 
