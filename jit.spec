@@ -18,8 +18,10 @@ Source2:	%{name}.init
 Source3:	%{name}.sysconfig
 Patch0:		%{name}-version.patch
 URL:		http://jit.jabberstudio.org/
+Requires(post):	jabber-common
 Requires(post,preun):	/sbin/chkconfig
 Requires(post):	fileutils
+Requires:	jabber-common
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -39,10 +41,10 @@ u¿ytkownikami ICQ.
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_sbindir},%{_sysconfdir},%{_libdir}/jabberd,/var/log/%{name}} \
+install -d $RPM_BUILD_ROOT{%{_sbindir},%{_sysconfdir}/jabber,%{_libdir}/jabberd,/var/log/%{name}} \
 	$RPM_BUILD_ROOT%{_sysconfdir}{/rc.d/init.d,/sysconfig}
 
-install %{SOURCE1} $RPM_BUILD_ROOT%{_sysconfdir}
+install %{SOURCE1} $RPM_BUILD_ROOT%{_sysconfdir}/jabber
 install %{SOURCE2} $RPM_BUILD_ROOT%{_sysconfdir}/rc.d/init.d/%{name}
 install %{SOURCE3} $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{name}
 
@@ -53,16 +55,15 @@ install jit/jit.so $RPM_BUILD_ROOT%{_libdir}/jabberd/jit.so
 rm -rf $RPM_BUILD_ROOT
 
 %pre
-if [ "$1" = 1 ] ; then
-	if [ ! -n "`getgid jabber`" ]; then
-		%{_sbindir}/groupadd -f -g 74 jabber
-	fi
-	if [ ! -n "`id -u jabber 2>/dev/null`" ]; then
-		%{_sbindir}/useradd -g jabber -d /var/lib/jabber -u 74 -s /bin/false jabber 2>/dev/null
-	fi
-fi
 
 %post
+if [ -f /etc/jabber/secret ] ; then
+	SECRET=`cat /etc/jabber/secret`
+	if [ -n "$SECRET" ] ; then
+        	echo "Updating component authentication secret in jit.xml..."
+		perl -pi -e "s/>secret</>$SECRET</" /etc/jabber/jit.xml
+	fi
+fi
 /sbin/chkconfig --add jit
 if [ -r /var/lock/subsys/jit ]; then
 	/etc/rc.d/init.d/jit restart >&2
@@ -82,7 +83,7 @@ fi
 %defattr(644,root,root,755)
 %doc AUTHORS jit/ChangeLog README jit/TODO jit/INSTALL doc/FAQ
 %attr(755,root,root) %{_sbindir}/*
-%attr(640,root,jabber) %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/jit.xml
+%attr(640,root,jabber) %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/jabber/jit.xml
 %attr(754,root,root) /etc/rc.d/init.d/jit
 %{_libdir}/jabberd/jit.so
 %config(noreplace) %verify(not size mtime md5) /etc/sysconfig/jit
