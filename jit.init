@@ -1,0 +1,56 @@
+#!/bin/sh
+# Jabber ICQ transport daemon
+#
+# chkconfig:	345 85 05
+# description:	Jabber ICQ transport daemon
+
+# Source function library
+. /etc/rc.d/init.d/functions
+
+# Get network config
+. /etc/sysconfig/network
+
+# Get service config
+[ -f /etc/sysconfig/jit ] && . /etc/sysconfig/jit
+
+# Check that networking is up.
+if is_no "${NETWORKING}"; then
+	msg_Network_Down jit
+	exit 1
+fi
+
+# See how we were called.
+case "$1" in
+  start)
+	# Check if the service is already running?
+	if [ ! -f /var/lock/subsys/jit ]; then
+		msg_starting "Jabber ICQ transport daemon"
+		daemon --user jabber jit $JIT_FLAGS
+		RETVAL=$?
+		if [ $RETVAL -eq 0 ] ; then
+			touch /var/lock/subsys/jit
+		fi
+	else
+		msg_Already_Running jit
+		exit 1
+	fi
+	;;
+  stop)
+	msg_stopping  "Jabber ICQ transport daemon"
+	killproc jit
+	rm -f /var/run/jit.pid
+	rm -f /var/lock/subsys/jit
+	;;
+  restart|reload)
+	$0 stop
+	$0 start
+	;;
+  status)
+	status jit
+	;;
+  *)
+	msg_Usage "$0 {start|stop|restart|reload|status}"
+	exit 1
+esac
+
+exit $RETVAL
