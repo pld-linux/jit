@@ -39,18 +39,21 @@ u¿ytkownikami ICQ.
 %build
 %configure
 %{__make}
+cd xdb_file
+%{__make}
+cd ..
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_sbindir},%{_sysconfdir}/jabber,%{_libdir}/jabberd,/var/log/%{name}} \
-	$RPM_BUILD_ROOT%{_sysconfdir}{/rc.d/init.d,/sysconfig}
+install -d $RPM_BUILD_ROOT{%{_sbindir},%{_sysconfdir}/jabber,%{_libdir}/jit,/var/log/%{name}} \
+	$RPM_BUILD_ROOT{%{_sysconfdir}{/rc.d/init.d,/sysconfig},/var/lib/%{name}}
 
 install %{SOURCE1} $RPM_BUILD_ROOT%{_sysconfdir}/jabber
 install %{SOURCE2} $RPM_BUILD_ROOT%{_sysconfdir}/rc.d/init.d/%{name}
 install %{SOURCE3} $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{name}
 
 install jabberd/jabberd $RPM_BUILD_ROOT%{_sbindir}/jit
-install jit/jit.so $RPM_BUILD_ROOT%{_libdir}/jabberd/jit.so
+install jit/jit.so xdb_file/xdb_file.so $RPM_BUILD_ROOT%{_libdir}/%{name}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -86,6 +89,7 @@ fi
 %attr(755,root,root) %{_sbindir}/*
 %attr(640,root,jabber) %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/jabber/jit.xml
 %attr(754,root,root) /etc/rc.d/init.d/jit
-%{_libdir}/jabberd/jit.so
+%{_libdir}/jit
 %config(noreplace) %verify(not size mtime md5) /etc/sysconfig/jit
 %attr(770,root,jabber) /var/log/%{name}
+%attr(770,root,jabber) /var/lib/%{name}
