@@ -1,0 +1,20 @@
+diff -uNr jit-1.1.5-nochange/jit/jit/iq.c jit-1.1.5-version/jit/jit/iq.c
+--- jit-1.1.5-nochange/jit/jit/iq.c	Mon Feb 17 14:34:16 2003
++++ jit-1.1.5-version/jit/jit/iq.c	Thu May 22 15:21:32 2003
+@@ -528,13 +528,13 @@
+     q = xmlnode_insert_tag(x,"query");
+     xmlnode_put_attrib(q,"xmlns",NS_VERSION);
+ 	
+-    xmlnode_insert_cdata(xmlnode_insert_tag(q,"name"),"JIT - Jabber ICQ Transport by Lukas",-1);
++    xmlnode_insert_cdata(xmlnode_insert_tag(q,"name"),"JIT",-1);
+ 
+-    sprintf(buf,"Jabber: %s \n ICQ: %s",VERSION,MOD_VERSION);
++    sprintf(buf,"%s",MOD_VERSION);
+     xmlnode_insert_cdata(xmlnode_insert_tag(q,"version"),buf,-1);
+ 
+     os = xmlnode_insert_tag(q,"os");
+-    xmlnode_insert_cdata(os,"Linux System",-1);
++    xmlnode_insert_cdata(os,"Linux",-1);
+ 
+     it_deliver(ti,x);
+ }
