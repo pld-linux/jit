@@ -34,7 +34,7 @@ u¿ytkownikami ICQ.
 %{?_without_version:%patch0 -p1}
 
 %build
-%configure 
+%configure
 %{__make}
 
 %install
