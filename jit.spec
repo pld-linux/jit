@@ -7,13 +7,14 @@ License:	GPL
 Group:		Applications/Communications
 Source0:	http://telia.dl.sourceforge.net/sourceforge/%{name}/%{name}-%{version}.tar.gz
 Source1:	%{name}.xml
-Source2:    %{name}.init
-Source3:    %{name}.sysconfig
+Source2:	%{name}.init
+Source3:	%{name}.sysconfig
 Patch0:		%{name}-daemonize.patch
 Patch1:		%{name}-user_change.patch
-Requires:	jabber-icq-transport
 URL:		http://jit.sourceforge.net/
-
+Requires(post,preun):	/sbin/chkconfig
+Requires(post):	fileutils
+Requires:	jabber-icq-transport
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -54,9 +55,9 @@ if [ -f /etc/jabberd/icqtrans.xml ]; then
 	echo "to work correctly."
 fi
 if [ -r /var/lock/subsys/jit ]; then
-       	/etc/rc.d/init.d/jit restart >&2
+	/etc/rc.d/init.d/jit restart >&2
 else
-        echo "Run \"/etc/rc.d/init.d/jit start\" to start Jabber ICQ transport daemon."
+	echo "Run \"/etc/rc.d/init.d/jit start\" to start Jabber ICQ transport daemon."
 fi
 
 %preun
