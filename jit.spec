@@ -47,6 +47,7 @@ install jabberd/jabberd-icq $RPM_BUILD_ROOT%{_sbindir}/jit
 rm -rf $RPM_BUILD_ROOT
 
 %post
+/sbin/chkconfig --add jit
 if [ -f /etc/jabberd/icqtrans.xml ]; then
 	mv -f /etc/jabberd/icqtrans.xml /etc/jabberd/icqtrans.xml.off
 	echo "WARNING: Jabber ICQ transport *module* has been disabled for the *daemon*"
@@ -63,6 +64,7 @@ if [ "$1" = "0" ]; then
 	if [ -r /var/lock/subsys/jit ]; then
 		/etc/rc.d/init.d/jit stop >&2
 	fi
+	/sbin/chkconfig --del jit
 fi
 
 %files
