@@ -1,37 +1,6 @@
 <jabber>
-    <!--Forthistowork,youshouldalsoupdate/etc/jabber/jabber.xml
-	Addthefolowing(changedtoyourneeds):
 
-    <browse>
-
-	...
-
-	<servicetype="icq"jid="icq.localhost"name="ICQ Link">
-		<ns>jabber:iq:gateway</ns>
-		<ns>jabber:iq:register</ns>
-		<ns>jabber:iq:search</ns>
-	</service>
-
-	...
-
-    </browse>
-
-
-    <serviceid="icqlinker">
-	<host>icq.localhost</host>
-	<host>sms.icq.localhost</host>
-	<accept>
-		<ip>127.0.0.1</ip>
-		<port>5555</port>
-		<secret>test</secret>
-		<timeout>30</timeout>
-	</accept>
-    </service>
--->
-
-
-
-	<!-- *****READ**** /usr/share/doc/jit-*/INSTALL.gz -->
+  <!-- *****READ**** /usr/share/doc/jit-*/INSTALL.gz -->
 
   <log id='elogger'>
     <host/>
@@ -46,7 +15,6 @@
     <format>%d %h %s</format>
 	<file>/var/log/jit/icqrecord</file>
   </log>
-
 
   <!--
      localhost is your jabber host. like  jabber.org
@@ -123,13 +91,13 @@
    <!-- As host give your main jabber host name
         not icq.your_host !!! -->
  
-   <service id="icqlinker">
+   <service id="icq-linker">
    <host>localhost</host>
    <uplink/>
    <connect>
      <ip>127.0.0.1</ip>
-     <port>5555</port>
-     <secret>test</secret>
+     <port>5347</port>
+     <secret>secret</secret>
    </connect>
    </service>
 
