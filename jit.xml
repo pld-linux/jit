@@ -1,0 +1,102 @@
+<jabber>
+
+	<!-- *****READ**** /usr/share/doc/jit-*/INSTALL.gz -->
+
+  <log id='elogger'>
+    <host/>
+    <logtype/>
+    <format>%d: [%t] (%h): %s</format>
+    <file>log/icqerror</file>
+  </log>
+
+  <log id='rlogger'>
+    <host/>    
+    <logtype>record</logtype>
+    <format>%d %h %s</format>
+    <file>log/icqrecord</file>
+  </log>
+
+
+  <!--
+     localhost is your jabber host. like  jabber.org
+     so for example icq.localhost means icq.jabber.org
+  -->
+
+ <service id="icq.localhost">
+   <host>sms.icq.localhost</host>
+   
+ <icqtrans xmlns="jabber:config:icqtrans">
+
+      <sms>
+        <host>sms.icq.localhost</host>
+  	<show>away</show>
+	<status></status>
+      </sms>
+
+      <instructions>Please give your UIN and password</instructions>
+
+      <search>Search useres in ICQ</search>
+
+      <vCard>
+        <FN>JIT</FN>
+        <DESC>JIT Jabber ICQ Transport by Lukas</DESC>
+        <URL>http://jit.sf.net</URL>
+      </vCard>
+
+      <!-- Hashtable for users -->
+      <prime>3907</prime>
+            
+      <!-- Send messages from icq as chat to jabber clients -->
+      <chat/>
+
+      <!-- Web presence enable -->
+      <web/>
+
+      <!-- Lower case user when registering ! 
+           and if reg not found -->
+      <lowercase_user/>
+      
+      <!-- File with stats -->        
+      <user_count_file>stats/session_count.log</user_count_file>
+      
+      <!-- Interval beetween checking sessions: ping, messages, acks -->                 
+      <session_check>5</session_check>
+
+      <!-- Reconnect retries. -->                 
+      <reconnects>5</reconnects>
+      
+      <!-- Time in sec when session can be inactive, 0  - disabled -->
+      <session_timeout>18000</session_timeout>
+
+      <!-- Charset -->
+      <charset>windows-1252</charset>
+
+      <!-- login.icq.com 
+           always IP !!!!!! -->
+      <server>
+	 <host port="5190">205.188.179.233</host>
+	 <host port="5190">64.12.200.89</host>
+      </server>
+
+     
+    </icqtrans>
+
+   <load>
+	<icqtrans>/usr/lib/jabberd/icqtrans.so</icqtrans>
+   </load>
+
+  </service>
+
+  <pidfile>stats/icq.pid</pidfile>
+
+   <service id="icqlinker">
+   <host>localhost</host>
+   <uplink/>
+   <connect>
+     <ip>xxxx</ip>
+     <port>5555</port>
+     <secret>xxxx</secret>
+   </connect>
+   </service>
+
+</jabber>
