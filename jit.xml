@@ -81,7 +81,7 @@
     </icqtrans>
 
    <load>
-	<icqtrans>/usr/lib/jabberd/jit.so</icqtrans>
+	<icqtrans>/usr/lib/jit/jit.so</icqtrans>
    </load>
 
   </service>
@@ -100,5 +100,16 @@
      <secret>secret</secret>
    </connect>
    </service>
+
+  <xdb id="xdb">
+    <host/>
+    <load>
+      <xdb_file>/usr/lib/jit/xdb_file.so</xdb_file>
+    </load>
+    <xdb_file xmlns="jabber:config:xdb_file">
+      <spool>/var/lib/jit</spool>
+    </xdb_file>
+  </xdb>
+
 
 </jabber>
