@@ -9,7 +9,7 @@ Version:	1.1.6
 Release:	2
 License:	GPL
 Group:		Applications/Communications
-Source0:	http://files.jabberstudio.org/%{name}/%{name}-%{version}.tar.gz
+Source0:	http://files.jabberstudio.org/jit/%{name}-%{version}.tar.gz
 # Source0-md5:	950f6b82ab5e0542535108fd54409363
 Source1:	%{name}.xml
 Source2:	%{name}.init
