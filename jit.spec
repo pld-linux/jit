@@ -17,6 +17,7 @@ Source3:	%{name}.sysconfig
 Patch0:		%{name}-version.patch
 Patch1:		%{name}-gcc33.patch
 URL:		http://jit.jabberstudio.org/
+BuildRequires:	libstdc++-devel
 PreReq:		rc-scripts
 Requires(post):	jabber-common
 Requires(post,preun):	/sbin/chkconfig
@@ -85,9 +86,9 @@ fi
 %defattr(644,root,root,755)
 %doc AUTHORS jit/ChangeLog README jit/TODO jit/INSTALL doc/FAQ
 %attr(755,root,root) %{_sbindir}/*
-%attr(640,root,jabber) %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/jabber/jit.xml
+%attr(640,root,jabber) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/jabber/jit.xml
 %attr(754,root,root) /etc/rc.d/init.d/jit
 %{_libdir}/jit
-%config(noreplace) %verify(not size mtime md5) /etc/sysconfig/jit
+%config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/jit
 %attr(770,root,jabber) /var/log/%{name}
 %attr(770,root,jabber) /var/lib/%{name}
