@@ -5,17 +5,17 @@
 Summary:	ICQ transport daemon for Jabber
 Summary(pl):	Demon transportowy ICQ dla systemu Jabber
 Name:		jit
-Version:	1.1.6
-Release:	2
+Version:	1.1.7
+Release:	1
 License:	GPL
 Group:		Applications/Communications
-Source0:	http://files.jabberstudio.org/jit/%{name}-%{version}.tar.gz
-# Source0-md5:	950f6b82ab5e0542535108fd54409363
+#Source0:	http://files.jabberstudio.org/jit/%{name}-%{version}.tar.gz
+Source0:	http://www.jabber.ru/files/jit/%{name}-%{version}.tar.gz
+# Source0-md5:	5400bd79d5014fef35fed2195967e5ae
 Source1:	%{name}.xml
 Source2:	%{name}.init
 Source3:	%{name}.sysconfig
 Patch0:		%{name}-version.patch
-Patch1:		%{name}-gcc33.patch
 URL:		http://jit.jabberstudio.org/
 BuildRequires:	libstdc++-devel
 PreReq:		rc-scripts
@@ -37,7 +37,6 @@ u¿ytkownikami ICQ.
 %prep
 %setup -q
 %{!?with_version:%patch0 -p1}
-%patch1
 
 %build
 %configure
@@ -53,7 +52,7 @@ install %{SOURCE1} $RPM_BUILD_ROOT%{_sysconfdir}/jabber
 install %{SOURCE2} $RPM_BUILD_ROOT/etc/rc.d/init.d/%{name}
 install %{SOURCE3} $RPM_BUILD_ROOT/etc/sysconfig/%{name}
 
-install jabberd/jabberd $RPM_BUILD_ROOT%{_sbindir}/jit
+install jabberd/jabberd-jit $RPM_BUILD_ROOT%{_sbindir}/jit
 install jit/jit.so xdb_file/xdb_file.so $RPM_BUILD_ROOT%{_libdir}/%{name}
 
 %clean
