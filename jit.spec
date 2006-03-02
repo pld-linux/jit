@@ -18,12 +18,13 @@ Source3:	%{name}.sysconfig
 Patch0:		%{name}-version.patch
 URL:		http://jit.jabberstudio.org/
 BuildRequires:	libstdc++-devel
-PreReq:		rc-scripts
+BuildRequires:	rpmbuild(macros) >= 1.268
 Requires(post):	jabber-common
-Requires(post,preun):	/sbin/chkconfig
-Requires(post):	perl-base
+Requires(post):	sed >= 4.0
 Requires(post):	textutils
+Requires(post,preun):	/sbin/chkconfig
 Requires:	jabber-common
+Requires:	rc-scripts
 Obsoletes:	jabber-icq-transport
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -59,25 +60,19 @@ install jit/jit.so xdb_file/xdb_file.so $RPM_BUILD_ROOT%{_libdir}/%{name}
 rm -rf $RPM_BUILD_ROOT
 
 %post
-if [ -f /etc/jabber/secret ] ; then
-	SECRET=`cat /etc/jabber/secret`
+if [ -f %{_sysconfdir}/jabber/secret ] ; then
+	SECRET=`cat %{_sysconfdir}/jabber/secret`
 	if [ -n "$SECRET" ] ; then
-        	echo "Updating component authentication secret in jit.xml..."
-		perl -pi -e "s/>secret</>$SECRET</" /etc/jabber/jit.xml
+		echo "Updating component authentication secret in jit.xml..."
+		%{__sed} -i -e "s/>secret</>$SECRET</" %{_sysconfdir}/jabber/jit.xml
 	fi
 fi
 /sbin/chkconfig --add jit
-if [ -r /var/lock/subsys/jit ]; then
-	/etc/rc.d/init.d/jit restart >&2
-else
-	echo "Run \"/etc/rc.d/init.d/jit start\" to start Jabber ICQ transport daemon."
-fi
+%service jit restart "Jabber ICQ transport daemon"
 
 %preun
 if [ "$1" = "0" ]; then
-	if [ -r /var/lock/subsys/jit ]; then
-		/etc/rc.d/init.d/jit stop >&2
-	fi
+	%service jit stop
 	/sbin/chkconfig --del jit
 fi
 
