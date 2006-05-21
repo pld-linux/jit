@@ -1,3 +1,5 @@
+# TODO
+# - cc, cflags
 #
 # Conditional build:
 %bcond_without	version		# show shorter version string answering the version query
