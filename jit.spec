@@ -5,7 +5,7 @@
 %bcond_without	version		# show shorter version string answering the version query
 #
 Summary:	ICQ transport daemon for Jabber
-Summary(pl):	Demon transportowy ICQ dla systemu Jabber
+Summary(pl.UTF-8):   Demon transportowy ICQ dla systemu Jabber
 Name:		jit
 Version:	1.1.7
 Release:	2
@@ -33,9 +33,9 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %description
 This daemon allows Jabber to communicate with ICQ servers.
 
-%description -l pl
-Demon ten umoøliwia uøytkownikom Jabbera komunikowanie siÍ z
-uøytkownikami ICQ.
+%description -l pl.UTF-8
+Demon ten umo≈ºliwia u≈ºytkownikom Jabbera komunikowanie siƒô z
+u≈ºytkownikami ICQ.
 
 %prep
 %setup -q
