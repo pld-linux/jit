@@ -5,7 +5,7 @@
 %bcond_without	version		# show shorter version string answering the version query
 #
 Summary:	ICQ transport daemon for Jabber
-Summary(pl.UTF-8):   Demon transportowy ICQ dla systemu Jabber
+Summary(pl.UTF-8):	Demon transportowy ICQ dla systemu Jabber
 Name:		jit
 Version:	1.1.7
 Release:	2
